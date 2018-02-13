@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', "Lottery\BetController@index");
+Route::get('/', 'Lottery\BetController@index');
+
+Route::post('/', 'Lottery\BetController@store');

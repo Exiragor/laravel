@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Bet extends Model
 {
     const TYPE_LETTER = 'letter';
-    const TYPE_NUMBER = 'number';
-    const TYPE_CONCRETE_LETTER = 'concrete_letter';
-    const TYPE_CONCRETE_NUMBER = 'concrete_number';
+    const TYPE_ODD_NUMBER = 'odd_num';
+    const TYPE_EVEN_NUMBER = 'even_num';
+    const TYPE_SELECT = 'select';
 
     public static function getTypes() {
-        return [];
+        $type_let = self::TYPE_LETTER;
+        $type_odd_num = self::TYPE_ODD_NUMBER;
+        $type_even_num = self::TYPE_EVEN_NUMBER;
+        $type_sel = self::TYPE_SELECT;
+
+        return compact('type_odd_num','type_even_num', 'type_let', 'type_sel');
     }
+
+
 }
