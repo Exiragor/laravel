@@ -53,11 +53,11 @@
                     <button class="button button--inline" v-if="odd_num.show" @click="showField('odd_num', $event)">Отмена</button>
                 </div>
             </div>
-            <div class="col-md-12 text-right">
-                <button class="button button--inline">Got it!</button>
-            </div>
             <div class="col-md-12">
                 <h2>Итог: @{{ sum }} Bitcoin</h2>
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="button button--inline">Got it!</button>
             </div>
         </form>
     </lottery>

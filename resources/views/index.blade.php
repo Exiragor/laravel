@@ -4,11 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name') }}</title>
 
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
     <body>
         <header class="header"></header>
@@ -16,6 +17,6 @@
             @yield('lottery')
         </div>
         <footer></footer>
-        <script src="/js/app.js" async="async"></script>
+        <script src="{{ mix('/js/app.js') }}" async="async"></script>
     </body>
 </html>
