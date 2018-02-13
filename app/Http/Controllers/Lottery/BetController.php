@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Lottery;
 use App\Models\Bet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class BetController extends Controller
 {
@@ -17,6 +18,10 @@ class BetController extends Controller
             'letter' => 'max:1|regex:/[a-fA-f]/|nullable',
             'even_num' => 'max:9|numeric|nullable',
             'odd_num' => 'max:9|numeric|nullable',
+            'select' => [
+                'nullable',
+                Rule::in(['letter', 'odd_num', 'even_num'])
+            ]
         ]);
 
         $types = Bet::getTypes();
