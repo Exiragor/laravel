@@ -14,5 +14,6 @@ return [
     'sum' => 'Итог:',
     'currency' => 'Bitcoin',
     'all_ready' => 'Готово',
-    'success_bet' => 'Ставка сделана!'
+    'success_bet' => 'Ставка сделана!',
+    'bets_history' => 'История ставок'
 ];

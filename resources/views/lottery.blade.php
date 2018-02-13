@@ -66,4 +66,24 @@
             </div>
         </form>
     </lottery>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ __('text.bets_history') }}</h1>
+        </div>
+        <table>
+            <thead>
+                <td>ID</td>
+                <td>Тип ставки</td>
+                <td>Значение</td>
+            </thead>
+            @foreach($bets as $bet)
+                <tr>
+                    <td>{{ $bet->id }}</td>
+                    <td>{{ $bet->bet_type }}</td>
+                    <td>{{ $bet->value }}</td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
 @endsection

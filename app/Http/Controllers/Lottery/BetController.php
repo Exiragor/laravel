@@ -10,7 +10,8 @@ use Illuminate\Validation\Rule;
 class BetController extends Controller
 {
     public function index() {
-        return view('lottery');
+        $bets = Bet::all();
+        return view('lottery', compact('bets'));
     }
 
     public function store(Request $request) {
