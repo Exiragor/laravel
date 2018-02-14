@@ -2,29 +2,20 @@
 
 namespace App\Http\Controllers\Lottery;
 
+use App\Events\BetsUpdate;
+use App\Http\Requests\NewBets;
 use App\Models\Bet;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
+
 
 class BetController extends Controller
 {
     public function index() {
-        $bets = Bet::all();
+        $bets = Bet::take(20)->orderBy('id', 'desc')->get();
         return view('lottery', compact('bets'));
     }
 
-    public function store(Request $request) {
-        $this->validate($request, [
-            'letter' => 'max:1|regex:/[a-fA-f]/|nullable',
-            'even_num' => 'max:9|numeric|nullable',
-            'odd_num' => 'max:9|numeric|nullable',
-            'select' => [
-                'nullable',
-                Rule::in(['letter', 'odd_num', 'even_num'])
-            ]
-        ]);
-
+    public function store(NewBets $request) {
         $types = Bet::getTypes();
         $req_vars = [
             'select' => $types['type_sel'],
@@ -43,8 +34,9 @@ class BetController extends Controller
             }
         }
 
-
-        return view('lottery', ['success' => true]);
+        $bets = Bet::take(20)->orderBy('id', 'desc')->get();
+        $success = true;
+        return view('lottery', compact('bets', 'success'));
     }
 
 }

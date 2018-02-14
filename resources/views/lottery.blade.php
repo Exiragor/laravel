@@ -71,19 +71,25 @@
         <div class="col-md-12">
             <h1>{{ __('text.bets_history') }}</h1>
         </div>
-        <table>
-            <thead>
-                <td>ID</td>
-                <td>Тип ставки</td>
-                <td>Значение</td>
-            </thead>
-            @foreach($bets as $bet)
-                <tr>
-                    <td>{{ $bet->id }}</td>
-                    <td>{{ $bet->bet_type }}</td>
-                    <td>{{ $bet->value }}</td>
+        <history_table :items="{{ $bets }}"
+                       :letter="'{{ __('Конкретная буква') }}'"
+                       :even_num="'{{ __('Конкретное четное число') }}'"
+                       :odd_num="'{{ __('Конкретное нечетное число') }}'"
+                       :select="'{{ __('Выбор') }}'"
+                        inline-template>
+            <table>
+                <thead>
+                <th>{{ __('Номер') }}</th>
+                <th>{{ __('Тип ставки') }}</th>
+                <th>{{ __('Ставка') }}</th>
+                </thead>
+                <tr v-for="item in items">
+                    <td>@{{ item.id }}</td>
+                    <td>@{{ names[item.bet_type] }}</td>
+                    <td>@{{item.value}}</td>
                 </tr>
-            @endforeach
+            </table>
+        </history_table>
         </table>
     </div>
 @endsection

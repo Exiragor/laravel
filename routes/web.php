@@ -14,3 +14,8 @@
 Route::get('/', 'Lottery\BetController@index');
 
 Route::post('/', 'Lottery\BetController@store');
+
+Route::get('/event/', function () {
+    event(new \App\Events\BetsUpdated());
+    return response("This page for trigger event");
+});

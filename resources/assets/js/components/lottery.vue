@@ -22,9 +22,6 @@
                 sum: 0
             }
         },
-        created() {
-
-        },
         methods: {
             showField(field, e) {
                 e.preventDefault();

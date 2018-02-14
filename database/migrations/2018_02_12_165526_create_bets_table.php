@@ -15,10 +15,14 @@ class CreateBetsTable extends Migration
     {
         Schema::create('bets', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
+
             $table->integer('payment_id')->nullable();
+
             $table->string('bet_type');
             $table->string('value');
-            $table->timestamps();
+
+            $table->foreign('payment_id')->references('id')->on('payments');
         });
     }
 

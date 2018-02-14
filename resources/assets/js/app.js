@@ -16,8 +16,13 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component('lottery', require('./components/lottery.vue'));
+Vue.component('history_table', require('./components/history_table.vue'));
 
 const app = new Vue({
     el: '#wrapper'
 });
 
+Echo.channel('bets')
+    .listen('.bets.updated', (e) => {
+        console.log(e);
+    });
