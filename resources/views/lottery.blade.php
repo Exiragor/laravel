@@ -38,7 +38,15 @@
                 <div class="panel text-center">
                     <h3>{{ __('text.second_bet_name') }}</h3>
                     <button v-if="!letter.show" @click="showField('letter', $event)" class="button">{{ __('text.place_a_bet') }}</button>
-                    <input v-model="letter.value" v-if="letter.show" type="text" name="letter">
+                    <select v-if="letter.show" v-model="letter.value" name="letter">
+                        <option value="">-</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                        <option value="f">f</option>
+                    </select>
                     <button class="button button--inline" v-if="letter.show" @click="showField('letter', $event)">{{ __('text.cancel_a_bet') }}</button>
                 </div>
             </div>
@@ -46,7 +54,14 @@
                 <div class="panel text-center">
                     <h3>{{ __('text.third_bet_name') }}</h3>
                     <button v-if="!even_num.show" @click="showField('even_num', $event)" class="button">{{ __('text.place_a_bet') }}</button>
-                    <input v-model="even_num.value" v-if="even_num.show" type="text" name="even_num">
+                    <select v-if="even_num.show" v-model="even_num.value" name="even_num">
+                        <option value="">-</option>
+                        <option value="0">0</option>
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                    </select>
                     <button class="button button--inline" v-if="even_num.show" @click="showField('even_num', $event)">{{ __('text.cancel_a_bet') }}</button>
                 </div>
             </div>
@@ -54,7 +69,14 @@
                 <div class="panel text-center">
                     <h3>{{ __('text.fourth_bet_name') }}</h3>
                     <button v-if="!odd_num.show" @click="showField('odd_num', $event)" class="button">{{ __('text.place_a_bet') }}</button>
-                    <input v-model="odd_num.value" v-if="odd_num.show" type="text" name="odd_num">
+                    <select v-if="odd_num.show" v-model="odd_num.value" name="odd_num">
+                        <option value="">-</option>
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="7">7</option>
+                        <option value="9">9</option>
+                    </select>
                     <button class="button button--inline" v-if="odd_num.show" @click="showField('odd_num', $event)">{{ __('text.cancel_a_bet') }}</button>
                 </div>
             </div>

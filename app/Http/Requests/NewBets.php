@@ -26,8 +26,14 @@ class NewBets extends FormRequest
     {
         return [
             'letter' => 'max:1|regex:/[a-fA-f]/|nullable',
-            'even_num' => 'max:9|numeric|nullable',
-            'odd_num' => 'max:9|numeric|nullable',
+            'even_num' => [
+                'nullable',
+                Rule::in(['0', '2', '4', '6', '8'])
+            ],
+            'odd_num' => [
+                'nullable',
+                Rule::in(['1', '3', '5', '7', '9'])
+            ],
             'select' => [
                 'nullable',
                 Rule::in(['letter', 'odd_num', 'even_num'])
