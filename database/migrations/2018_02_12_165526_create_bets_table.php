@@ -21,8 +21,9 @@ class CreateBetsTable extends Migration
 
             $table->string('bet_type');
             $table->string('value');
+            $table->boolean('winner')->default(false);
 
-            $table->foreign('payment_id')->references('id')->on('payments');
+//            $table->foreign('payment_id')->references('id')->on('payments');
         });
     }
 

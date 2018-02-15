@@ -36,3 +36,11 @@ Route::get('/test/', function () {
     $pusher->trigger('my-channel', 'my-event', $data);
     return response("This page for trigger event");
 });
+
+Route::get('/lottery/', function () {
+    $bets = \App\Models\Bet::take(1)->orderBy('id', 'desc')->get();
+    $bet = $bets[0];
+    $bet->winner = true;
+    $bet->save();
+    return response("This page for lottery imitation");
+});

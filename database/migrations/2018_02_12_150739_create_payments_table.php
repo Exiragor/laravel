@@ -23,7 +23,7 @@ class CreatePaymentsTable extends Migration
             $table->string('status');
             $table->decimal('amount', 21, 8);
 
-            $table->foreign('currency_id')->references('id')->on('currencies');
+//            $table->foreign('currency_id')->references('id')->on('currencies');
         });
     }
 
