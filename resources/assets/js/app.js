@@ -25,4 +25,4 @@ const app = new Vue({
 Echo.channel('bets')
     .listen('.bets.updated', (e) => {
         console.log(e);
-    });
+});

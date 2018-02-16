@@ -14,6 +14,8 @@ class BetsUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+
     /**
      * Create a new event instance.
      *
@@ -21,7 +23,7 @@ class BetsUpdated implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        $this->user = 'test';
     }
 
     /**
@@ -32,5 +34,10 @@ class BetsUpdated implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('bets');
+    }
+
+    public function broadcastAs()
+    {
+        return 'bets.updated';
     }
 }
