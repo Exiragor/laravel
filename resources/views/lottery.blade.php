@@ -105,10 +105,10 @@
                 <th>{{ __('Тип ставки') }}</th>
                 <th>{{ __('Ставка') }}</th>
                 </thead>
-                <tr v-for="item in items" :class="{ winner: item.winner}">
-                    <td>@{{ item.id }}</td>
-                    <td>@{{ names[item.bet_type] }}</td>
-                    <td>@{{item.value}}</td>
+                <tr v-for="bet in bets" :class="{ winner: bet.winner}">
+                    <td>@{{ bet.id }}</td>
+                    <td>@{{ names[bet.bet_type] }}</td>
+                    <td>@{{bet.value}}</td>
                 </tr>
             </table>
         </history_table>

@@ -25,7 +25,7 @@
         },
         data() {
             return {
-                items: this.items,
+                bets: this.items,
                 names: {
                     letter: this.letter,
                     select: this.select,
@@ -34,5 +34,12 @@
                 }
             }
         },
+
+        mounted() {
+            Echo.channel('bets')
+                .listen('.bets.updated', (data) => {
+                    this.bets.unshift(data.bet);
+                });
+        }
     }
 </script>

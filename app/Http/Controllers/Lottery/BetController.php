@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lottery;
 
 use App\Events\BetsUpdate;
+use App\Events\BetsUpdated;
 use App\Http\Requests\NewBets;
 use App\Models\Bet;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,8 @@ class BetController extends Controller
                 $bet->bet_type = $type;
                 $bet->value = $var;
                 $bet->save();
+
+                event(new BetsUpdated($bet));
             }
         }
 

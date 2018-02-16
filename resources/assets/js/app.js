@@ -22,7 +22,3 @@ const app = new Vue({
     el: '#wrapper'
 });
 
-Echo.channel('bets')
-    .listen('.bets.updated', (e) => {
-        console.log(e);
-});
