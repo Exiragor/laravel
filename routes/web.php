@@ -20,10 +20,9 @@ Route::get('/event/', function () {
     return response("This page for trigger event");
 });
 
-Route::get('/lottery/', function () {
-    $bets = \App\Models\Bet::take(1)->orderBy('id', 'desc')->get();
-    $bet = $bets[0];
-    $bet->winner = true;
-    $bet->save();
-    return response("This page for lottery imitation");
+Route::get('/test/lottery/', function () {
+    $game = new \App\Models\Game();
+    $game->setTime();
+    $res = $game->lottery();
+    return response($res);
 });
