@@ -5,6 +5,10 @@
                 type: Array,
                 required: false
             },
+            symbol: {
+                type: String,
+                required: false,
+            },
             letter: {
                 type: String,
                 required: true,
@@ -25,7 +29,8 @@
         },
         data() {
             return {
-                bets: this.items,
+                winners: this.items,
+                win_symbol: (this.symbol) ? this.symbol : 'Пока нету! =)',
                 names: {
                     letter: this.letter,
                     select: this.select,
@@ -37,19 +42,23 @@
 
         mounted() {
             Echo.channel('bets')
-                .listen('.bets.updated', (data) => {
-                    this.bets.unshift(data.bet);
-                })
                 .listen('.bets.new.winners', (data) => {
-                    for (let winner in data.winners) {
-                        for (let bet in this.bets) {
-                            if (this.bets[bet].id === data.winners[winner].id) {
-                                this.bets[bet].winner = true;
+                    for (let index in data.winners) {
+                        let exist = false;
+                        for (let winner in this.winners) {
+                            if (JSON.stringify(this.winners[winner])
+                                ===
+                                JSON.stringify(data.winners[index])) {
+
+                                exist = true;
+                                break;
                             }
                         }
+                        if (!exist)
+                            this.winners.unshift(data.winners[index]);
                     }
+                    this.win_symbol = data.symbol;
                 });
-
         }
     }
 </script>

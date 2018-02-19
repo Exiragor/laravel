@@ -2,19 +2,20 @@
 
 namespace App\Console\Commands;
 
+use App\Events\NewWinners;
 use App\Models\Bet;
 use App\Models\Game;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class lottery extends Command
+class Lottery extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'lottery';
+    protected $signature = 'lottery:game';
 
     /**
      * The console command description.
@@ -40,7 +41,7 @@ class lottery extends Command
      */
     public function handle()
     {
-        $game = Game::getInstance();
+        $game = new Game();
         $game->lottery();
     }
 }

@@ -89,6 +89,36 @@
         </form>
     </lottery>
 
+    <winners_table :items="{{ $winners }}"
+                   :symbol="'{{ $win_symbol }}'"
+                   :letter="'{{ __('Конкретная буква') }}'"
+                   :even_num="'{{ __('Конкретное четное число') }}'"
+                   :odd_num="'{{ __('Конкретное нечетное число') }}'"
+                   :select="'{{ __('Выбор') }}'"
+                   inline-template>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>{{ __('Последний символ-победитель:') }}</h3>
+                <p>@{{ win_symbol }}</p>
+            </div>
+            <div class="col-md-12">
+                <h1>{{ __('Последние победители') }}</h1>
+            </div>
+            <table>
+                <thead>
+                <th>{{ __('Номер') }}</th>
+                <th>{{ __('Тип ставки') }}</th>
+                <th>{{ __('Ставка') }}</th>
+                </thead>
+                <tr v-for="winner in winners">
+                    <td>@{{ winner.id }}</td>
+                    <td>@{{ names[winner.bet_type] }}</td>
+                    <td>@{{winner.value}}</td>
+                </tr>
+            </table>
+        </div>
+    </winners_table>
+
     <div class="row">
         <div class="col-md-12">
             <h1>{{ __('text.bets_history') }}</h1>

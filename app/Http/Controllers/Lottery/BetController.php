@@ -7,13 +7,16 @@ use App\Events\BetsUpdated;
 use App\Http\Requests\NewBets;
 use App\Models\Bet;
 use App\Http\Controllers\Controller;
+use App\Models\Game;
 
 
 class BetController extends Controller
 {
     public function index() {
         $bets = Bet::take(20)->orderBy('id', 'desc')->get();
-        return view('lottery', compact('bets'));
+        $winners = Bet::take(5)->orderBy('id', 'desc')->where('winner', true)->get();
+        $win_symbol = Game::first()->winner_symbol;
+        return view('lottery', compact('bets', 'winners', 'win_symbol'));
     }
 
     public function store(NewBets $request) {
@@ -38,8 +41,10 @@ class BetController extends Controller
         }
 
         $bets = Bet::take(20)->orderBy('id', 'desc')->get();
+        $winners = Bet::take(5)->orderBy('id', 'desc')->where('winner', true)->get();
+        $win_symbol = Game::first()->winner_symbol;
         $success = true;
-        return view('lottery', compact('bets', 'success'));
+        return view('lottery', compact('bets', 'success', 'winners', 'win_symbol'));
     }
 
 }

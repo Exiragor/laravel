@@ -17,6 +17,7 @@ window.Vue = require('vue');
  */
 Vue.component('lottery', require('./components/lottery.vue'));
 Vue.component('history_table', require('./components/history_table.vue'));
+Vue.component('winners_table', require('./components/winners_table.vue'));
 
 const app = new Vue({
     el: '#wrapper'

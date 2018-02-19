@@ -25,7 +25,7 @@ class NewBets extends FormRequest
     public function rules()
     {
         return [
-            'letter' => 'max:1|regex:/[a-fA-f]/|nullable',
+            'letter' => 'max:1|regex:/[a-f]/|nullable',
             'even_num' => [
                 'nullable',
                 Rule::in(['0', '2', '4', '6', '8'])

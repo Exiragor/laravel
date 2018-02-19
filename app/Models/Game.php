@@ -8,31 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    const GAME_TIME = 30;
+    const GAME_TIME = 3; // count of minutes
 
     private $gameStartTime;
-    private $lastWinSymbol;
 
     protected $fillable = ['start_time', 'winner_symbol'];
 
     protected $visible = ['start_time', 'winner_symbol'];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
-
     public function lottery() {
+        $this->setTime();
         $diffMinutes = Carbon::now()->diffInMinutes(Carbon::parse($this->gameStartTime));
         if ($diffMinutes >= self::GAME_TIME) {
-            $symbol = $this->endOfGame();
+            $this->endOfGame();
             $this->startNewGame();
-            return $symbol;
+            return true;
         }
-        return $diffMinutes;
+        return false;
     }
 
-    public function setTime() {
+    private function setTime() {
         $game = self::all()->first();
         if (is_null($game)) {
             $this->gameStartTime = Carbon::now()->toDateTimeString();
@@ -50,15 +45,11 @@ class Game extends Model
     }
 
     private function endOfGame() {
-        $letters = ['a', 'b', 'c', 'd', 'e', 'f'];
-        $numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        $posible_vars =  $letters + $numbers;
+        $symbol = $this->getSymbolFromHash();
+        self::update(['winner_symbol' => $symbol]);
 
-        $rand_val = array_rand($posible_vars);
-        $this->lastWinSymbol = $rand_val;
-
-        if (in_array($rand_val, $numbers)) {
-            if ($rand_val % 2 == 0)
+        if (is_numeric($symbol)) {
+            if ($symbol % 2 == 0)
                 $symbol_type = 'even_num';
             else
                 $symbol_type = 'odd_num';
@@ -66,10 +57,11 @@ class Game extends Model
             $symbol_type = 'letter';
         }
 
+
         $time = Carbon::now()->subMinutes(self::GAME_TIME)->toDateTimeString();
-        $winners = Bet::where([
+        $winners = Bet::orderBy('id', 'desc')->where([
             ['created_at', '>=', $time],
-            ['value', $rand_val],
+            ['value', $symbol],
             ['winner', false]
         ])->orWhere([
             ['created_at', '>=', $time],
@@ -82,8 +74,24 @@ class Game extends Model
             $winner->save();
         }
 
-        event(new NewWinners($winners, $rand_val));
+        event(new NewWinners($winners, $symbol));
 
-        return $rand_val;
+        return $symbol;
+    }
+
+    private function getSymbolFromHash(): string {
+        // method for get hash string of block. but now generating random string
+        $hash = self::generateRandomString();
+        return substr($hash, strlen($hash) - 1, 1);
+    }
+
+    public static function generateRandomString($length = 10) {
+        $characters = '0123456789abcdef';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

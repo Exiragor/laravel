@@ -22,7 +22,6 @@ Route::get('/event/', function () {
 
 Route::get('/test/lottery/', function () {
     $game = new \App\Models\Game();
-    $game->setTime();
     $res = $game->lottery();
     return response($res);
 });
