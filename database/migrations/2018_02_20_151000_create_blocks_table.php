@@ -16,7 +16,7 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->timestamp('date_time');
+            $table->timestamp('date_time')->nullable();
 
             $table->string('hash');
             $table->integer('number');

@@ -17,9 +17,9 @@ class CreateBetsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->integer('payment_id')->nullable()->unsigned();
-            $table->integer('currency_id')->nullable()->unsigned();
-            $table->integer('game_id')->nullable()->unsigned();
+            $table->integer('payment_id')->unsigned();
+            $table->integer('currency_id')->unsigned();
+            $table->integer('game_id')->unsigned();
 
             $table->string('type');
             $table->string('symbol');
