@@ -31,7 +31,7 @@ window.client = {
 
 	getParams(method, params) {
 		params = params || {};
-		params.locale = Bazista.locale;
+		// params.locale = Bazista.locale;
 		return (method === 'get') ? { params } : params;
 	},
 

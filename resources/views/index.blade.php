@@ -14,7 +14,7 @@
     <body>
         <header class="header"></header>
         <div class="container" id="wrapper">
-            @yield('lottery')
+            @yield('main')
         </div>
         <footer></footer>
         <script src="{{ mix('/js/app.js') }}" async="async"></script>
