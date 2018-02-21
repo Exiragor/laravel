@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('transaction_id')->unsigned();
 
             $table->string('status');
-            $table->decimal('amount', 21, 8);
+            $table->decimal('amount', 21, 8)->unsigned();
             $table->string('address');
 
             $table->foreign('currency_id')->references('id')->on('currencies');

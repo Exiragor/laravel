@@ -18,13 +18,13 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             $table->timestamp('date_time')->nullable();
 
-            $table->integer('block_id')->unsigned();
+            $table->integer('block_id')->unsigned()->nullable;
             $table->integer('currency_id')->unsigned();
 
-            $table->decimal('amount', 21, 8);
-            $table->string('from_address');
-            $table->string('to_address');
-            $table->string('hash');
+            $table->decimal('amount', 21, 8)->unsigned();
+            $table->string('from_address')->nullable();
+            $table->string('to_address')->nullable();
+            $table->string('hash')->unique();
 
             $table->foreign('block_id')->references('id')->on('blocks');
             $table->foreign('currency_id')->references('id')->on('currencies');

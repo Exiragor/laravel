@@ -17,12 +17,12 @@ class CreateGamesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->timestamp('opened_at')->nullable();
-            $table->timestamp('finished_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
 
-            $table->integer('block_id')->unsigned();
+            $table->integer('block_id')->unsigned()->nullable();
             $table->integer('currency_id')->unsigned();
 
-            $table->string('winner_symbol')->nullable();
+            $table->string('symbol')->nullable();
             $table->string('status');
 
             $table->foreign('block_id')->references('id')->on('blocks');
