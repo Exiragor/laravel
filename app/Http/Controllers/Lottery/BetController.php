@@ -12,14 +12,16 @@ use App\Models\Game;
 
 class BetController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 //        $bets = Bet::take(20)->orderBy('id', 'desc')->get();
 //        $winners = Bet::take(5)->orderBy('id', 'desc')->where('winner', true)->get();
 //        $win_symbol = Game::first()->winner_symbol;
         return view('main');
     }
 
-    public function store(NewBets $request) {
+    public function store(NewBets $request)
+    {
         $types = Bet::getTypes();
         $req_vars = [
             'select' => $types['type_sel'],

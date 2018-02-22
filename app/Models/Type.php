@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Type extends Model
 {
@@ -12,4 +13,9 @@ class Type extends Model
     ];
 
     protected $casts = ['active' => 'boolean'];
+
+    public function scopeActive(Builder $query, bool $active = true)
+    {
+        return $query->where(compact('active'));
+    }
 }
