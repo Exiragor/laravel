@@ -21,7 +21,7 @@ class TypesSeeder extends Seeder
         ];
 
         foreach ($drivers as $driver) {
-            if (Type::where(compact('driver'))->exists()) continue;
+//            if (Type::where(compact('driver'))->exists()) continue;
 
             factory(Type::class)->states($driver)->create();
         }

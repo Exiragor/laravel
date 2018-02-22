@@ -16,8 +16,7 @@ class CurrenciesTableSeeder extends Seeder
         $drivers = ['btc'];
 
         foreach ($drivers as $driver) {
-            if (Currency::where(compact('driver'))->exists()) continue;
-
+//            if (Currency::where(compact('driver'))->exists()) continue;
             factory(Currency::class)->states($driver)->create();
         }
     }
