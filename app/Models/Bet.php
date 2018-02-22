@@ -11,9 +11,11 @@ class Bet extends Model
     const TYPE_EVEN_NUMBER = 'even_num';
     const TYPE_SELECT = 'select';
 
-    protected $fillable = ['bet_type', 'value', 'winner'];
+    protected $fillable = ['winner'];
 
-    protected $visible = ['id', 'bet_type', 'value', 'winner'];
+    protected $visible = ['id', 'winner'];
+
+    protected $casts = ['winner' => 'boolean'];
 
     public static function getTypes() {
         $type_let = self::TYPE_LETTER;

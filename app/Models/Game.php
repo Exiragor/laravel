@@ -12,9 +12,11 @@ class Game extends Model
 
     private $gameStartTime;
 
-    protected $fillable = ['start_time', 'winner_symbol'];
+    protected $fillable = [
+        'opened_at', 'closed_at',
+        'symbol', 'status'
+    ];
 
-    protected $visible = ['start_time', 'winner_symbol'];
 
     public function lottery() {
         $this->setTime();
