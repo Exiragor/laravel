@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Currency;
+
 use Illuminate\Database\Seeder;
 
 class CurrenciesTableSeeder extends Seeder
@@ -11,6 +13,12 @@ class CurrenciesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Currency::class)->create(['name' => 'BTC']);
+        $drivers = ['btc'];
+
+        foreach ($drivers as $driver) {
+            if (Currency::where(compact('driver'))->exists()) continue;
+
+            factory(Currency::class)->states($driver)->create();
+        }
     }
 }
