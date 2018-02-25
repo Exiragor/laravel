@@ -13,11 +13,10 @@ class CurrenciesTableSeeder extends Seeder
      */
     public function run()
     {
-        $drivers = ['btc'];
+        $currencies = ['btc'];
 
-        foreach ($drivers as $driver) {
-//            if (Currency::where(compact('driver'))->exists()) continue;
-            factory(Currency::class)->states($driver)->create();
+        foreach ($currencies as $currency) {
+            factory(Currency::class)->states($currency)->create();
         }
     }
 }

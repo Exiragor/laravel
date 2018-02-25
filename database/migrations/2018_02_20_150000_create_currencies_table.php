@@ -18,6 +18,7 @@ class CreateCurrenciesTable extends Migration
             $table->timestamps();
 
             $table->string('name')->unique();
+            $table->boolean('active')->default(true);
         });
     }
 
