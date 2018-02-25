@@ -12,11 +12,18 @@
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
     <body>
-        <header class="header"></header>
-        <div class="container" id="wrapper">
-            @yield('main')
+
+        <div id="app">
+
+            <header class="header"></header>
+
+            @yield('content')
+
+            <footer class="footer"></footer>
+
         </div>
-        <footer></footer>
+
         <script src="{{ mix('/js/app.js') }}" async="async"></script>
+
     </body>
 </html>

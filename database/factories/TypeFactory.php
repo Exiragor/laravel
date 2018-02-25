@@ -19,14 +19,14 @@ $factory->state(Type::class, 'any_letter', [
     'value' => 'any_letter',
 ]);
 
-$factory->state(Type::class, 'even_number', [
+$factory->state(Type::class, 'any_even_number', [
     'name' => 'Even number',
-    'value' => 'even_number',
+    'value' => 'any_even_number',
 ]);
 
-$factory->state(Type::class, 'odd_number', [
+$factory->state(Type::class, 'any_odd_number', [
     'name' => 'Odd number',
-    'value' => 'odd_number',
+    'value' => 'any_odd_number',
 ]);
 
 $factory->state(Type::class, 'letter_a', [
@@ -59,53 +59,53 @@ $factory->state(Type::class, 'letter_f', [
     'value' => 'letter_f',
 ]);
 
-$factory->state(Type::class, 'number_0', [
+$factory->state(Type::class, 'even_number_0', [
     'name' => 'Number 0',
-    'value' => 'number_0',
+    'value' => 'even_number_0',
 ]);
 
-$factory->state(Type::class, 'number_1', [
+$factory->state(Type::class, 'odd_number_1', [
     'name' => 'Number 1',
-    'value' => 'number_1',
+    'value' => 'odd_number_1',
 ]);
 
-$factory->state(Type::class, 'number_2', [
+$factory->state(Type::class, 'even_number_2', [
     'name' => 'Number 2',
-    'value' => 'number_2',
+    'value' => 'even_number_2',
 ]);
 
-$factory->state(Type::class, 'number_3', [
+$factory->state(Type::class, 'odd_number_3', [
     'name' => 'Number 3',
-    'value' => 'number_3',
+    'value' => 'odd_number_3',
 ]);
 
-$factory->state(Type::class, 'number_4', [
+$factory->state(Type::class, 'even_number_4', [
     'name' => 'Number 4',
-    'value' => 'number_4',
+    'value' => 'even_number_4',
 ]);
 
-$factory->state(Type::class, 'number_5', [
+$factory->state(Type::class, 'odd_number_5', [
     'name' => 'Number 5',
-    'value' => 'number_5',
+    'value' => 'odd_number_5',
 ]);
 
-$factory->state(Type::class, 'number_6', [
+$factory->state(Type::class, 'even_number_6', [
     'name' => 'Number 6',
-    'value' => 'number_6',
+    'value' => 'even_number_6',
 ]);
 
-$factory->state(Type::class, 'number_7', [
+$factory->state(Type::class, 'odd_number_7', [
     'name' => 'Number 7',
-    'value' => 'number_7',
+    'value' => 'odd_number_7',
 ]);
 
-$factory->state(Type::class, 'number_8', [
+$factory->state(Type::class, 'even_number_8', [
     'name' => 'Number 8',
-    'value' => 'number_8',
+    'value' => 'even_number_8',
 ]);
 
-$factory->state(Type::class, 'number_9', [
+$factory->state(Type::class, 'odd_number_9', [
     'name' => 'Number 9',
-    'value' => 'number_9',
+    'value' => 'odd_number_9',
 ]);
 
