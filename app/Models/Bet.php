@@ -13,8 +13,6 @@ class Bet extends Model
 
     protected $fillable = ['winner'];
 
-    protected $visible = ['id', 'winner'];
-
     protected $casts = ['winner' => 'boolean'];
 
     public static function getTypes() {

@@ -12,10 +12,7 @@ class Game extends Model
 
     private $gameStartTime;
 
-    protected $fillable = [
-        'opened_at', 'closed_at',
-        'symbol', 'status'
-    ];
+    protected $fillable = ['opened_at', 'closed_at', 'symbol', 'status'];
 
 
     public function lottery() {
