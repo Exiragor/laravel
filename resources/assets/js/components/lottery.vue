@@ -2,54 +2,59 @@
     export default {
         data() {
             return {
-                types: []
-            }
-        },
-
-        methods: {
-            getTypes() {
-                client.get('/api/types')
-                    .then(response => {
-                        this.types = response.data.data;
-                    })
-                    .catch(response => console.log(response));
-            },
-            getTypeElems(condition, getSymbol = false) {
-                let arr = [];
-
-                this.types.forEach((elem) => {
-                    if (elem.value.indexOf(condition) >= 0) {
-
-                        if (getSymbol) {
-                            let tempArr = elem.value.split('_');
-                            elem.symbol = tempArr[tempArr.length - 1];
-                        }
-
-                        arr.push(elem);
-                    }
-                });
-
-                return arr;
+                types: [],
             }
         },
 
         created() {
             this.getTypes();
+        },
 
+        methods: {
+            getTypes() {
+                client.get('/api/types')
+                    .then( response => this.setTypes(response.data.data) )
+                    .catch( response => console.log(response) );
+            },
+
+            setTypes(types) {
+                this.types = types.map(type => {
+                    type.selected = false;
+                    return type;
+                });
+            },
+
+            selectType(type) {
+                type.selected = true;
+            },
+
+            clearType(group) {
+                this[group + '_types'].map(type => {
+                    type.selected = false;
+                    return type;
+                });
+            },
         },
 
         computed: {
-            letter_number_types() {
-                return this.getTypeElems('any_');
+            common_types() {
+                return _.filter(this.types, { group: 'common' });
             },
-            any_letter_types() {
-                return this.getTypeElems('letter_', true);
+
+            letter_types() {
+                return _.filter(this.types, { group: 'letter' });
             },
+
             even_number_types() {
-                return this.getTypeElems('even_number_', true);
+                return _.filter(this.types, { group: 'even_number' });
             },
+
             odd_number_types() {
-                return this.getTypeElems('odd_number_', true);
+                return _.filter(this.types, { group: 'odd_number' });
+            },
+
+            selected_types() {
+                return _.filter(this.types, { selected: true });
             },
         },
     }

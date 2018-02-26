@@ -10080,3 +10080,8 @@ tr td:last-child {
   background-color: green;
 }
 
+.btn-selected {
+  background-color: #545b62;
+  border-color: #4e555b;
+}
+

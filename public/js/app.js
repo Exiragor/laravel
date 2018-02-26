@@ -52087,6 +52087,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             types: []
         };
     },
+    created: function created() {
+        this.getTypes();
+    },
 
 
     methods: {
@@ -52094,49 +52097,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             client.get('/api/types').then(function (response) {
-                _this.types = response.data.data;
+                return _this.setTypes(response.data.data);
             }).catch(function (response) {
                 return console.log(response);
             });
         },
-        getTypeElems: function getTypeElems(condition) {
-            var getSymbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            var arr = [];
-
-            this.types.forEach(function (elem) {
-                if (elem.value.indexOf(condition) >= 0) {
-
-                    if (getSymbol) {
-                        var tempArr = elem.value.split('_');
-                        elem.symbol = tempArr[tempArr.length - 1];
-                    }
-
-                    arr.push(elem);
-                }
+        setTypes: function setTypes(types) {
+            this.types = types.map(function (type) {
+                type.selected = false;
+                return type;
             });
-
-            return arr;
+        },
+        selectType: function selectType(type) {
+            type.selected = true;
+        },
+        clearType: function clearType(group) {
+            this[group + '_types'].map(function (type) {
+                type.selected = false;
+                return type;
+            });
         }
     },
 
-    created: function created() {
-        this.getTypes();
-    },
-
-
     computed: {
-        letter_number_types: function letter_number_types() {
-            return this.getTypeElems('any_');
+        common_types: function common_types() {
+            return _.filter(this.types, { group: 'common' });
         },
-        any_letter_types: function any_letter_types() {
-            return this.getTypeElems('letter_', true);
+        letter_types: function letter_types() {
+            return _.filter(this.types, { group: 'letter' });
         },
         even_number_types: function even_number_types() {
-            return this.getTypeElems('even_number_', true);
+            return _.filter(this.types, { group: 'even_number' });
         },
         odd_number_types: function odd_number_types() {
-            return this.getTypeElems('odd_number_', true);
+            return _.filter(this.types, { group: 'odd_number' });
+        },
+        selected_types: function selected_types() {
+            return _.filter(this.types, { selected: true });
         }
     }
 });
