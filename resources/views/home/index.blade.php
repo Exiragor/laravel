@@ -4,18 +4,21 @@
 
 <lottery inline-template>
     <div id="lottery" class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6">
 
             <div class="panel text-center">
 
                 <h3>{{ __('text.first_bet_name') }}</h3>
 
                 <div class="btn-group" role="group" aria-label="{{ __('text.first_bet_name') }}">
-                    <button v-for="type in letter_number_types" type="button" class="btn btn-secondary">@{{ (type.symbol) ? type.symbol : type.value }}</button>
+                    <button v-for="type in letter_number_types" type="button" class="btn btn-secondary">
+                        @{{ (type.symbol) ? type.symbol : type.value }}
+                    </button>
                 </div>
 
             </div>
-
+        </div>
+        <div class="col-md-6">
             <div class="panel text-center">
 
                 <h3>{{ __('text.second_bet_name') }}</h3>
@@ -25,7 +28,8 @@
                 </div>
 
             </div>
-
+        </div>
+        <div class="col-md-6">
             <div class="panel text-center">
 
                 <h3>{{ __('text.third_bet_name') }}</h3>
@@ -35,7 +39,8 @@
                 </div>
 
             </div>
-
+        </div>
+        <div class="col-md-6">
             <div class="panel text-center">
 
                 <h3>{{ __('text.fourth_bet_name') }}</h3>
@@ -45,6 +50,7 @@
                 </div>
 
             </div>
+        </div>
         </div>
     </div>
 </lottery>
