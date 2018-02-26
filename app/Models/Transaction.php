@@ -10,8 +10,9 @@ class Transaction extends Model
 
         'date_time',
 
+        'block_id', 'currency_id',
+
         'amount', 'from_address', 'to_address', 'hash',
 
-        'block_id', 'currency_id'
     ];
 }

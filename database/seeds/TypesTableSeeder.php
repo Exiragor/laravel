@@ -13,17 +13,17 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $values = [
+        $names = [
             'any_letter', 'any_odd_number', 'any_even_number',
             'letter_a', 'letter_b', 'letter_c', 'letter_d', 'letter_e', 'letter_f',
             'even_number_0', 'even_number_2', 'even_number_4', 'even_number_6', 'even_number_8',
             'odd_number_1', 'odd_number_3', 'odd_number_5', 'odd_number_7', 'odd_number_9',
         ];
 
-        foreach ($values as $value) {
-            if (Type::where(compact('value'))->exists()) continue;
+        foreach ($names as $name) {
+            if (Type::where(compact('name'))->exists()) continue;
 
-            factory(Type::class)->states($value)->create();
+            factory(Type::class)->states($name)->create();
         }
     }
 }

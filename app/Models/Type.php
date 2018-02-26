@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 class Type extends Model
 {
     protected $fillable = [
-        'name', 'value', 'active',
-        'rate_amount', 'rate_index', 'rate_profit'
+
+        'name', 'group', 'symbol', 'active',
+
+        'rate_amount', 'rate_index', 'rate_profit',
+
     ];
 
     protected $casts = ['active' => 'boolean'];

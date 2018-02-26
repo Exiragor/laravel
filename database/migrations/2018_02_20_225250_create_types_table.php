@@ -18,7 +18,8 @@ class CreateTypesTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('value')->unique();
+            $table->string('group');
+            $table->string('symbol')->nullable();
             $table->boolean('active')->default(true);
 
             $table->decimal('rate_amount', 21,8)->unsigned();
