@@ -17,9 +17,9 @@ class CreateBetsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->integer('payment_id')->unsigned();
+            $table->integer('payment_id')->unsigned()->nullable();
             $table->integer('currency_id')->unsigned();
-            $table->integer('game_id')->unsigned();
+            $table->integer('game_id')->unsigned()->nullable();
             $table->integer('type_id')->unsigned();
 
             $table->boolean('winner')->default(false);

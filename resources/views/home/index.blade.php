@@ -4,6 +4,7 @@
 
 <lottery inline-template>
     <div id="lottery" class="row">
+        {{ csrf_field() }}
         <div class="col-md-6">
 
             <div class="panel text-center">
@@ -72,6 +73,12 @@
                     {{ __('Отменить') }}
                 </button>
             </div>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <button class="btn" @click="createBets()">
+                {{ __('Сделать ставку') }}
+            </button>
         </div>
         </div>
     </div>

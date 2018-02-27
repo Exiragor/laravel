@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('types', 'Api\TypesController@index');
+Route::post('bets', 'Api\BetsController@store');

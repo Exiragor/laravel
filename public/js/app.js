@@ -52116,6 +52116,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type.selected = false;
                 return type;
             });
+        },
+        createBets: function createBets() {
+            client.post('/api/bets', {
+                currency_id: 1,
+                types_ids: this.selected_types.map(function (type) {
+                    return type.id;
+                })
+            }).then(function (response) {
+                return console.log(response.data.data);
+            }).catch(function (response) {
+                return console.log(response);
+            });
         }
     },
 

@@ -25,19 +25,8 @@ class NewBets extends FormRequest
     public function rules()
     {
         return [
-            'letter' => 'max:1|regex:/[a-f]/|nullable',
-            'even_num' => [
-                'nullable',
-                Rule::in(['0', '2', '4', '6', '8'])
-            ],
-            'odd_num' => [
-                'nullable',
-                Rule::in(['1', '3', '5', '7', '9'])
-            ],
-            'select' => [
-                'nullable',
-                Rule::in(['letter', 'odd_num', 'even_num'])
-            ]
+            'currency_id' => 'required|numeric',
+            'types_ids' => 'required|array'
         ];
     }
 }

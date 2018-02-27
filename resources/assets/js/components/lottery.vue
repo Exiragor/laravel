@@ -34,6 +34,17 @@
                     return type;
                 });
             },
+
+            createBets() {
+                client.post('/api/bets', {
+                    currency_id: 1,
+                    types_ids: this.selected_types.map(type => {
+                        return type.id
+                    }),
+                })
+                .then( response => console.log(response.data.data) )
+                .catch( response => console.log(response) );
+            },
         },
 
         computed: {
