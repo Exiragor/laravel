@@ -13820,6 +13820,10 @@ var app = new Vue({
   el: '#app'
 });
 
+// $('#myModal').on('shown.bs.modal', function () {
+//     $('#myInput').trigger('focus')
+// })
+
 /***/ }),
 /* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -52084,7 +52088,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            types: []
+            types: [],
+            createdBets: []
         };
     },
     created: function created() {
@@ -52109,7 +52114,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         selectType: function selectType(type) {
-            type.selected = true;
+            type.selected = !type.selected;
         },
         clearType: function clearType(group) {
             this[group + '_types'].map(function (type) {
@@ -52118,16 +52123,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         createBets: function createBets() {
+            var _this2 = this;
+
+            if (this.selected_types[0] === undefined) return;
             client.post('/api/bets', {
                 currency_id: 1,
                 types_ids: this.selected_types.map(function (type) {
                     return type.id;
                 })
             }).then(function (response) {
-                return console.log(response.data.data);
+                _this2.createdBets = response.data.data;
+                $('#Modal').modal('show');
             }).catch(function (response) {
                 return console.log(response);
             });
+        },
+        roundToPrecision: function roundToPrecision(subject, precision) {
+            return +(+subject).toFixed(precision);
         }
     },
 
@@ -52146,6 +52158,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         selected_types: function selected_types() {
             return _.filter(this.types, { selected: true });
+        },
+        sum: function sum() {
+            var _this3 = this;
+
+            var sum = 0;
+
+            this.createdBets.map(function (bet) {
+                sum = _this3.roundToPrecision(+bet.type.rate_amount + sum, 1);
+            });
+
+            return sum;
+        },
+        payments_address: function payments_address() {
+            return this.createdBets.map(function (bet) {
+                return bet.payment.address;
+            });
         }
     }
 });

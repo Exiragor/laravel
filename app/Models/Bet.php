@@ -24,5 +24,8 @@ class Bet extends Model
         return compact('type_odd_num','type_even_num', 'type_let', 'type_sel');
     }
 
-
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Type');
+    }
 }

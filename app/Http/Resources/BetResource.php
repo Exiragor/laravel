@@ -15,7 +15,12 @@ class BetResource extends JsonResource
     public function toArray($request)
     {
         return [
-
+            'id' => $this->id,
+            'payment' => [
+                'address' => str_random(),
+            ],
+            'currency_id' => $this->currency_id,
+            'type' => new TypeResource($this->whenLoaded('type')),
         ];
     }
 }

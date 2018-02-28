@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\NewBets;
+use App\Http\Resources\BetResource;
 use App\Models\Bet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,8 +15,7 @@ class BetsController extends Controller
         $currency_id = $request->get('currency_id');
         $types_ids = $request->get('types_ids');
 
-        $bets_id = ['test'];
-        $types_ids = [1, 2];
+        $bets = [];
         foreach ($types_ids as $type_id) {
             $bet = new Bet();
 
@@ -23,8 +23,14 @@ class BetsController extends Controller
             $bet->type_id = $type_id;
 
             $bet->save();
+
+            $bets[] = $bet->id;
         }
 
-        return
+        $bets = Bet::find($bets);
+
+        $bets->load('type');
+
+        return BetResource::collection($bets);
     }
 }

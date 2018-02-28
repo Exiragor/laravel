@@ -3,6 +3,7 @@
         data() {
             return {
                 types: [],
+                createdBets: [],
             }
         },
 
@@ -25,7 +26,7 @@
             },
 
             selectType(type) {
-                type.selected = true;
+                type.selected = !type.selected;
             },
 
             clearType(group) {
@@ -36,14 +37,22 @@
             },
 
             createBets() {
+                if (this.selected_types[0] === undefined) return;
                 client.post('/api/bets', {
                     currency_id: 1,
                     types_ids: this.selected_types.map(type => {
                         return type.id
                     }),
                 })
-                .then( response => console.log(response.data.data) )
+                .then( response => {
+                    this.createdBets = response.data.data;
+                    $('#Modal').modal('show');
+                })
                 .catch( response => console.log(response) );
+            },
+
+            roundToPrecision(subject, precision) {
+                return +((+subject).toFixed(precision));
             },
         },
 
@@ -66,6 +75,22 @@
 
             selected_types() {
                 return _.filter(this.types, { selected: true });
+            },
+
+            sum() {
+                let sum = 0;
+
+                this.createdBets.map(bet => {
+                    sum = this.roundToPrecision(+(bet.type.rate_amount) + sum, 1);
+                });
+
+                return sum;
+            },
+
+            payments_address() {
+                return this.createdBets.map(bet => {
+                    return bet.payment.address;
+                });
             },
         },
     }
