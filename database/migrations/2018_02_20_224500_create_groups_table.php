@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypesTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 
-            $table->integer('group_id')->unsigned();
-
             $table->string('name');
-            $table->string('symbol')->nullable();
-            $table->boolean('active')->default(true);
 
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->decimal('rate_amount', 21,8)->unsigned();
+            $table->decimal('rate_index', 5, 2)->unsigned();
+            $table->decimal('rate_profit', 21,8)->unsigned();
         });
     }
 
@@ -34,6 +32,6 @@ class CreateTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('groups');
     }
 }

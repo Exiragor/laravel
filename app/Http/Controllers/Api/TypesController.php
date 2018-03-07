@@ -12,6 +12,7 @@ class TypesController extends Controller
     public function index()
     {
         $types = Type::active()->get();
+        $types->load('group');
 
         return TypeResource::collection($types);
     }
