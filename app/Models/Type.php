@@ -7,18 +7,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Type extends Model
 {
-    protected $fillable = [
-
-        'name', 'group', 'symbol', 'active',
-
-        'rate_amount', 'rate_index', 'rate_profit',
-
-    ];
+    protected $fillable = ['name', 'group_id', 'symbol', 'active'];
 
     protected $casts = ['active' => 'boolean'];
 
     public function scopeActive(Builder $query, bool $active = true)
     {
         return $query->where(compact('active'));
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('group');
     }
 }

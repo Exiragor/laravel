@@ -52084,6 +52084,7 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52107,10 +52108,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return console.log(response);
             });
         },
-        setTypes: function setTypes(types) {
-            this.types = types.map(function (type) {
-                type.selected = false;
-                return type;
+        setTypes: function setTypes(groups) {
+            var _this2 = this;
+
+            groups.forEach(function (group) {
+                var _types;
+
+                (_types = _this2.types).push.apply(_types, _toConsumableArray(group.types.map(function (type) {
+                    type.selected = false;
+                    type.group = group.name;
+                    return type;
+                })));
             });
         },
         selectType: function selectType(type) {
@@ -52123,17 +52131,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         createBets: function createBets() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.selected_types[0] === undefined) return;
             client.post('/api/bets', {
                 currency_id: 1,
-                types_ids: this.selected_types.map(function (type) {
-                    return type.id;
+                types: this.selected_types.map(function (type) {
+                    return {
+                        id: type.id,
+                        group_id: type.group_id
+                    };
                 })
             }).then(function (response) {
-                _this2.createdBets = response.data.data;
+                _this3.createdBets = response.data.data;
                 $('#Modal').modal('show');
+                console.log(response.data.data);
             }).catch(function (response) {
                 return console.log(response);
             });
@@ -52160,12 +52172,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _.filter(this.types, { selected: true });
         },
         sum: function sum() {
-            var _this3 = this;
+            var _this4 = this;
 
             var sum = 0;
 
             this.createdBets.map(function (bet) {
-                sum = _this3.roundToPrecision(+bet.type.rate_amount + sum, 1);
+                sum = _this4.roundToPrecision(+bet.group.rate_amount + sum, 1);
             });
 
             return sum;

@@ -20,6 +20,7 @@ class GroupResource extends JsonResource
             'rate_amount' => $this->rate_amount,
             'rate_index' => $this->rate_index,
             'rate_profit' => $this->rate_profit,
+            'types' => TypeResource::collection($this->whenLoaded('types'))
         ];
     }
 }

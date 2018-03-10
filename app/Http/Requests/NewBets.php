@@ -26,7 +26,7 @@ class NewBets extends FormRequest
     {
         return [
             'currency_id' => 'required|numeric',
-            'types_ids' => 'required|array'
+            'types' => 'required|array'
         ];
     }
 }

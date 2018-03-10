@@ -18,6 +18,7 @@ class CreateGroupsTable extends Migration
             $table->timestamps();
 
             $table->string('name');
+            $table->boolean('active')->default(true);
 
             $table->decimal('rate_amount', 21,8)->unsigned();
             $table->decimal('rate_index', 5, 2)->unsigned();

@@ -11,7 +11,7 @@ class Bet extends Model
     const TYPE_EVEN_NUMBER = 'even_num';
     const TYPE_SELECT = 'select';
 
-    protected $fillable = ['winner', 'payment_id', 'currency_id', 'game_id', 'type_id'];
+    protected $fillable = ['winner', 'payment_id', 'currency_id', 'game_id', 'type_id', 'group_id'];
 
     protected $casts = ['winner' => 'boolean'];
 
@@ -27,5 +27,10 @@ class Bet extends Model
     public function type()
     {
         return $this->belongsTo('App\Models\Type');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
     }
 }

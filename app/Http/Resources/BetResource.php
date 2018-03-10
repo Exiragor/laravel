@@ -21,6 +21,7 @@ class BetResource extends JsonResource
             ],
             'currency_id' => $this->currency_id,
             'type' => new TypeResource($this->whenLoaded('type')),
+            'group' => new GroupResource($this->whenLoaded('group')),
         ];
     }
 }

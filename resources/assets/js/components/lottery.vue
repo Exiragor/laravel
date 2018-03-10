@@ -18,10 +18,13 @@
                     .catch( response => console.log(response) );
             },
 
-            setTypes(types) {
-                this.types = types.map(type => {
-                    type.selected = false;
-                    return type;
+            setTypes(groups) {
+                groups.forEach(group => {
+                    this.types.push(...group.types.map(type => {
+                        type.selected = false;
+                        type.group = group.name;
+                        return type;
+                    }));
                 });
             },
 
@@ -40,13 +43,17 @@
                 if (this.selected_types[0] === undefined) return;
                 client.post('/api/bets', {
                     currency_id: 1,
-                    types_ids: this.selected_types.map(type => {
-                        return type.id
+                    types: this.selected_types.map(type => {
+                        return {
+                            id: type.id,
+                            group_id: type.group_id,
+                        }
                     }),
                 })
                 .then( response => {
                     this.createdBets = response.data.data;
                     $('#Modal').modal('show');
+                    console.log(response.data.data);
                 })
                 .catch( response => console.log(response) );
             },
@@ -81,7 +88,7 @@
                 let sum = 0;
 
                 this.createdBets.map(bet => {
-                    sum = this.roundToPrecision(+(bet.type.rate_amount) + sum, 1);
+                    sum = this.roundToPrecision(+(bet.group.rate_amount) + sum, 1);
                 });
 
                 return sum;

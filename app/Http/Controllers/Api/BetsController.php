@@ -13,14 +13,15 @@ class BetsController extends Controller
     public function store(NewBets $request)
     {
         $currency_id = $request->get('currency_id');
-        $types_ids = $request->get('types_ids');
+        $types = $request->get('types');
 
         $bets = [];
-        foreach ($types_ids as $type_id) {
+        foreach ($types as $type) {
             $bet = new Bet();
 
             $bet->currency_id = $currency_id;
-            $bet->type_id = $type_id;
+            $bet->type_id = $type['id'];
+            $bet->group_id = $type['group_id'];
 
             $bet->save();
 
@@ -30,6 +31,7 @@ class BetsController extends Controller
         $bets = Bet::find($bets);
 
         $bets->load('type');
+        $bets->load('group');
 
         return BetResource::collection($bets);
     }
