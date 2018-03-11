@@ -17,7 +17,7 @@ class TypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'group_id' => $this->group_id,
+            'group' => new GroupResource($this->whenLoaded('group')),
             'symbol' => $this->symbol,
         ];
     }

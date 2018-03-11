@@ -52084,7 +52084,6 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52108,17 +52107,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                 return console.log(response);
             });
         },
-        setTypes: function setTypes(groups) {
-            var _this2 = this;
-
-            groups.forEach(function (group) {
-                var _types;
-
-                (_types = _this2.types).push.apply(_types, _toConsumableArray(group.types.map(function (type) {
-                    type.selected = false;
-                    type.group = group.name;
-                    return type;
-                })));
+        setTypes: function setTypes(types) {
+            this.types = types.map(function (type) {
+                type.selected = false;
+                type.group_name = type.group.name;
+                return type;
             });
         },
         selectType: function selectType(type) {
@@ -52131,7 +52124,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             });
         },
         createBets: function createBets() {
-            var _this3 = this;
+            var _this2 = this;
 
             if (this.selected_types[0] === undefined) return;
             client.post('/api/bets', {
@@ -52139,11 +52132,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                 types: this.selected_types.map(function (type) {
                     return {
                         id: type.id,
-                        group_id: type.group_id
+                        group_id: type.group.id
                     };
                 })
             }).then(function (response) {
-                _this3.createdBets = response.data.data;
+                _this2.createdBets = response.data.data;
                 $('#Modal').modal('show');
                 console.log(response.data.data);
             }).catch(function (response) {
@@ -52157,27 +52150,27 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     computed: {
         common_types: function common_types() {
-            return _.filter(this.types, { group: 'common' });
+            return _.filter(this.types, { group_name: 'common' });
         },
         letter_types: function letter_types() {
-            return _.filter(this.types, { group: 'letter' });
+            return _.filter(this.types, { group_name: 'letter' });
         },
         even_number_types: function even_number_types() {
-            return _.filter(this.types, { group: 'even_number' });
+            return _.filter(this.types, { group_name: 'even_number' });
         },
         odd_number_types: function odd_number_types() {
-            return _.filter(this.types, { group: 'odd_number' });
+            return _.filter(this.types, { group_name: 'odd_number' });
         },
         selected_types: function selected_types() {
             return _.filter(this.types, { selected: true });
         },
         sum: function sum() {
-            var _this4 = this;
+            var _this3 = this;
 
             var sum = 0;
 
             this.createdBets.map(function (bet) {
-                sum = _this4.roundToPrecision(+bet.group.rate_amount + sum, 1);
+                sum = _this3.roundToPrecision(+bet.group.rate_amount + sum, 1);
             });
 
             return sum;

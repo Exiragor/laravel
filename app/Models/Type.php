@@ -18,6 +18,6 @@ class Type extends Model
 
     public function group()
     {
-        return $this->belongsTo('group');
+        return $this->belongsTo('App\Models\Group');
     }
 }

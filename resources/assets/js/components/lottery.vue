@@ -18,13 +18,11 @@
                     .catch( response => console.log(response) );
             },
 
-            setTypes(groups) {
-                groups.forEach(group => {
-                    this.types.push(...group.types.map(type => {
-                        type.selected = false;
-                        type.group = group.name;
-                        return type;
-                    }));
+            setTypes(types) {
+                this.types = types.map(type => {
+                    type.selected = false;
+                    type.group_name = type.group.name;
+                    return type;
                 });
             },
 
@@ -46,7 +44,7 @@
                     types: this.selected_types.map(type => {
                         return {
                             id: type.id,
-                            group_id: type.group_id,
+                            group_id: type.group.id,
                         }
                     }),
                 })
@@ -65,19 +63,19 @@
 
         computed: {
             common_types() {
-                return _.filter(this.types, { group: 'common' });
+                return _.filter(this.types, { group_name: 'common' });
             },
 
             letter_types() {
-                return _.filter(this.types, { group: 'letter' });
+                return _.filter(this.types, { group_name: 'letter' });
             },
 
             even_number_types() {
-                return _.filter(this.types, { group: 'even_number' });
+                return _.filter(this.types, { group_name: 'even_number' });
             },
 
             odd_number_types() {
-                return _.filter(this.types, { group: 'odd_number' });
+                return _.filter(this.types, { group_name: 'odd_number' });
             },
 
             selected_types() {
