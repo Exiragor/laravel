@@ -52129,11 +52129,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.selected_types[0] === undefined) return;
             client.post('/api/bets', {
                 currency_id: 1,
-                types: this.selected_types.map(function (type) {
-                    return {
-                        id: type.id,
-                        group_id: type.group.id
-                    };
+                type_ids: this.selected_types.map(function (type) {
+                    return type.id;
                 })
             }).then(function (response) {
                 _this2.createdBets = response.data.data;

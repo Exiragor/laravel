@@ -41,11 +41,8 @@
                 if (this.selected_types[0] === undefined) return;
                 client.post('/api/bets', {
                     currency_id: 1,
-                    types: this.selected_types.map(type => {
-                        return {
-                            id: type.id,
-                            group_id: type.group.id,
-                        }
+                    type_ids: this.selected_types.map(type => {
+                        return type.id
                     }),
                 })
                 .then( response => {

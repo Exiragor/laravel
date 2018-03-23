@@ -33,4 +33,31 @@ class Bet extends Model
     {
         return $this->belongsTo('App\Models\Group');
     }
+
+    public function payment()
+    {
+        return $this->belongsTo('App\Models\Payment');
+    }
+
+    public static function createForCurrency($currency, $types, $payment)
+    {
+        $bets = [];
+        foreach ($types as $type) {
+            $bet = new self();
+            $bet->currency_id = $currency['id'];
+            $bet->type_id = $type['id'];
+            $bet->group_id = $type['group_id'];
+            $bet->payment_id = $payment['id'];
+            $bet->save();
+
+            $bets[] = $bet->id;
+        }
+
+        $bets = Bet::find($bets);
+        $bets->load('type');
+        $bets->load('group');
+        $bets->load('payment');
+
+        return $bets;
+    }
 }

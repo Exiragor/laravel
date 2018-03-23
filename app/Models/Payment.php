@@ -12,4 +12,16 @@ class Payment extends Model
 
         'status', 'amount', 'address',
     ];
+
+    public static function createForCurrency($currency, $amount)
+    {
+        $payment = new self();
+        $payment->currency_id = $currency->id;
+        $payment->amount = $amount;
+        $payment->status = 'processing';
+        $payment->address = str_random();
+        $payment->save();
+
+        return $payment;
+    }
 }

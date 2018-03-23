@@ -20,4 +20,15 @@ class Type extends Model
     {
         return $this->belongsTo('App\Models\Group');
     }
+
+    public static function getAmount($types)
+    {
+        $amount = 0;
+        foreach ($types as $type) {
+            $group = Group::find($type['group_id']);
+            $amount += $group->amount;
+        }
+
+        return $amount;
+    }
 }

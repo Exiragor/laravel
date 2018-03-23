@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->timestamps();
 
             $table->integer('currency_id')->unsigned();
-            $table->integer('transaction_id')->unsigned();
+            $table->integer('transaction_id')->unsigned()->nullable();
 
             $table->string('status');
             $table->decimal('amount', 21, 8)->unsigned();

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BetResource extends JsonResource
+class PaymentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,8 @@ class BetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'payment' => new PaymentResource($this->whenLoaded('payment')),
-            'currency_id' => $this->currency_id,
-            'type' => new TypeResource($this->whenLoaded('type')),
-            'group' => new GroupResource($this->whenLoaded('group')),
+            'amount' => $this->amount,
+            'address' => $this->address,
         ];
     }
 }
