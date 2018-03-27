@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class NewBets extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,9 @@ class NewBets extends FormRequest
     public function rules()
     {
         return [
-            'currency_id' => 'required|numeric',
-            'type_ids' => 'required|array'
+            'currency_id' => 'required|integer|exists:currencies,id',
+            'type_ids' => 'required|array',
+            'type_ids.*' => 'integer|exists:types,id',
         ];
     }
 }

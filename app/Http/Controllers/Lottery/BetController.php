@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Lottery;
 
 use App\Events\BetsUpdate;
 use App\Events\BetsUpdated;
-use App\Http\Requests\NewBets;
+use App\Http\Requests\StoreRequest;
 use App\Models\Bet;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
@@ -20,7 +20,7 @@ class BetController extends Controller
         return view('main');
     }
 
-    public function store(NewBets $request)
+    public function store(StoreRequest $request)
     {
         $types = Bet::getTypes();
         $req_vars = [

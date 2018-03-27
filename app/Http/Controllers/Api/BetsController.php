@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\NewBets;
+use App\Http\Requests\StoreRequest;
 use App\Http\Resources\BetResource;
 use App\Models\Bet;
 use App\Models\Currency;
@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 
 class BetsController extends Controller
 {
-    public function store(NewBets $request)
+    public function store(StoreRequest $request)
     {
         $currency = Currency::find($request->input('currency_id'));
         $types = Type::whereIn('id', $request->input('type_ids'))->get();

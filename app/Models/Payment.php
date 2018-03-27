@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
+    const STATUS_PROCESSING = 'processing';
+
     protected $fillable = [
 
         'currency_id', 'transaction_id',
@@ -13,15 +15,19 @@ class Payment extends Model
         'status', 'amount', 'address',
     ];
 
-    public static function createForCurrency($currency, $amount)
+    public static function createForCurrency(Currency $currency, string $amount)
     {
-        $payment = new self();
-        $payment->currency_id = $currency->id;
-        $payment->amount = $amount;
-        $payment->status = 'processing';
-        $payment->address = str_random();
-        $payment->save();
+//        $payment = new self();
+//        $payment->currency_id = $currency->id;
+//        $payment->amount = $amount;
+//        $payment->status = 'processing';
+//        $payment->address = str_random();
+//        $payment->save();
+//
+//        return $payment;
+        $status = self::STATUS_PROCESSING;
+        $address = str_random();
 
-        return $payment;
+        $currency->payments()->create(compact('amount', 'status', 'address'));
     }
 }
