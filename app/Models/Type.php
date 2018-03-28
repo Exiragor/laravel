@@ -26,4 +26,9 @@ class Type extends Model
     {
         return $types->load('group')->sum('group.amount');
     }
+
+    public function bets()
+    {
+        return $this->hasMany(Bet::class);
+    }
 }

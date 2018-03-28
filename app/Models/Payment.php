@@ -17,17 +17,9 @@ class Payment extends Model
 
     public static function createForCurrency(Currency $currency, string $amount)
     {
-//        $payment = new self();
-//        $payment->currency_id = $currency->id;
-//        $payment->amount = $amount;
-//        $payment->status = 'processing';
-//        $payment->address = str_random();
-//        $payment->save();
-//
-//        return $payment;
         $status = self::STATUS_PROCESSING;
         $address = str_random();
 
-        $currency->payments()->create(compact('amount', 'status', 'address'));
+        return $currency->payments()->create(compact('amount', 'status', 'address'));
     }
 }

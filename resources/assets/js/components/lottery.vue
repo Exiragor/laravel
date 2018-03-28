@@ -3,7 +3,7 @@
         data() {
             return {
                 types: [],
-                createdBets: [],
+                user_bets: [],
             }
         },
 
@@ -38,16 +38,14 @@
             },
 
             createBets() {
-                if (this.selected_types[0] === undefined) return;
+                if (!this.selected_types.length) return;
                 client.post('/api/bets', {
                     currency_id: 1,
-                    type_ids: this.selected_types.map(type => {
-                        return type.id
-                    }),
+                    type_ids: this.selected_types.map(type => type.id),
                 })
                 .then( response => {
-                    this.createdBets = response.data.data;
-                    $('#Modal').modal('show');
+                    this.user_bets = response.data.data;
+                    $('#bet-modal').modal('show');
                     console.log(response.data.data);
                 })
                 .catch( response => console.log(response) );

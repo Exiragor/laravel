@@ -14,4 +14,9 @@ class Currency extends Model
     {
         return $query->where(compact('active'));
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

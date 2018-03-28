@@ -20,7 +20,9 @@ class BetsController extends Controller
         $types = Type::whereIn('id', $request->input('type_ids'))->get();
         $amount = Type::getAmount($types);
         $payment = Payment::createForCurrency($currency, $amount);
-        $bets = Bet::createForCurrency($currency, $types, $payment);
+        $bets = Bet::createForPayment($types, $payment);
+
+        $bets->load('type', 'group', 'payment');
 
         return BetResource::collection($bets);
     }

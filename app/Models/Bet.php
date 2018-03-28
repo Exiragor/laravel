@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Bet extends Model
@@ -39,25 +40,14 @@ class Bet extends Model
         return $this->belongsTo('App\Models\Payment');
     }
 
-    public static function createForCurrency($currency, $types, $payment)
+    public static function createForPayment(Collection $types, Payment $payment)
     {
-        $bets = [];
-        foreach ($types as $type) {
-            $bet = new self();
-            $bet->currency_id = $currency['id'];
-            $bet->type_id = $type['id'];
-            $bet->group_id = $type['group_id'];
-            $bet->payment_id = $payment['id'];
-            $bet->save();
-
-            $bets[] = $bet->id;
-        }
-
-        $bets = Bet::find($bets);
-        $bets->load('type');
-        $bets->load('group');
-        $bets->load('payment');
-
-        return $bets;
+        return $types->map(function ($type) use ($payment) {
+            return $type->bets()->create([
+                'currency_id' => $payment->currency_id,
+                'payment_id' => $payment->id,
+                'group_id' => $type->group_id,
+            ]);
+        });
     }
 }

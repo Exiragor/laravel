@@ -16,8 +16,9 @@ class BetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'payment' => new PaymentResource($this->whenLoaded('payment')),
             'currency_id' => $this->currency_id,
+
+            'payment' => new PaymentResource($this->whenLoaded('payment')),
             'type' => new TypeResource($this->whenLoaded('type')),
             'group' => new GroupResource($this->whenLoaded('group')),
         ];
