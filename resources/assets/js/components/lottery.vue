@@ -4,6 +4,32 @@
             return {
                 types: [],
                 user_bets: [],
+                rules: [
+                    {
+                        reg: 'letter_',
+                        replace: 'Буква ',
+                    },
+                    {
+                        reg: 'even_number_',
+                        replace: 'Четное число ',
+                    },
+                    {
+                        reg: 'odd_number_',
+                        replace: 'Нечетное число ',
+                    },
+                    {
+                        reg: 'any_letter',
+                        replace: 'Любая буква',
+                    },
+                    {
+                        reg: 'any_odd_number',
+                        replace: 'Любое четное число',
+                    },
+                    {
+                        reg: 'any_even_number',
+                        replace: 'Любое нечетное число',
+                    },
+                ],
             }
         },
 
@@ -54,6 +80,16 @@
             roundToPrecision(subject, precision) {
                 return +((+subject).toFixed(precision));
             },
+
+            getFormatName(name) {
+                this.rules.forEach((element) => {
+                    if (name.indexOf(element.reg) > -1) {
+                        name = name.replace(new RegExp(element.reg, 'gi'), element.replace);
+                        return true;
+                    }
+                });
+                return name;
+            },
         },
 
         computed: {
@@ -80,7 +116,7 @@
             sum() {
                 let sum = 0;
 
-                this.createdBets.map(bet => {
+                this.user_bets.map(bet => {
                     sum = this.roundToPrecision(+(bet.group.rate_amount) + sum, 1);
                 });
 
@@ -88,7 +124,7 @@
             },
 
             payments_address() {
-                return this.createdBets.map(bet => {
+                return this.user_bets.map(bet => {
                     return bet.payment.address;
                 });
             },

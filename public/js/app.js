@@ -52089,7 +52089,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             types: [],
-            createdBets: []
+            user_bets: [],
+            rules: [{
+                reg: 'letter_',
+                replace: 'Буква '
+            }, {
+                reg: 'even_number_',
+                replace: 'Четное число '
+            }, {
+                reg: 'odd_number_',
+                replace: 'Нечетное число '
+            }, {
+                reg: 'any_letter',
+                replace: 'Любая буква'
+            }, {
+                reg: 'any_odd_number',
+                replace: 'Любое четное число'
+            }, {
+                reg: 'any_even_number',
+                replace: 'Любое нечетное число'
+            }]
         };
     },
     created: function created() {
@@ -52126,15 +52145,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createBets: function createBets() {
             var _this2 = this;
 
-            if (this.selected_types[0] === undefined) return;
+            if (!this.selected_types.length) return;
             client.post('/api/bets', {
                 currency_id: 1,
                 type_ids: this.selected_types.map(function (type) {
                     return type.id;
                 })
             }).then(function (response) {
-                _this2.createdBets = response.data.data;
-                $('#Modal').modal('show');
+                _this2.user_bets = response.data.data;
+                $('#bet-modal').modal('show');
                 console.log(response.data.data);
             }).catch(function (response) {
                 return console.log(response);
@@ -52142,6 +52161,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         roundToPrecision: function roundToPrecision(subject, precision) {
             return +(+subject).toFixed(precision);
+        },
+        getFormatName: function getFormatName(name) {
+            this.rules.forEach(function (element) {
+                if (name.indexOf(element.reg) > -1) {
+                    name = name.replace(new RegExp(element.reg, 'gi'), element.replace);
+                    return true;
+                }
+            });
+            return name;
         }
     },
 
@@ -52166,14 +52194,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var sum = 0;
 
-            this.createdBets.map(function (bet) {
+            this.user_bets.map(function (bet) {
                 sum = _this3.roundToPrecision(+bet.group.rate_amount + sum, 1);
             });
 
             return sum;
         },
         payments_address: function payments_address() {
-            return this.createdBets.map(function (bet) {
+            return this.user_bets.map(function (bet) {
                 return bet.payment.address;
             });
         }

@@ -14,7 +14,7 @@
                 <div class="btn-group" role="group_common" aria-label="{{ __('text.first_bet_name') }}">
                     <button v-for="type in common_types" type="button" class="btn btn-secondary"
                             @click="selectType(type)" :class="{ 'btn-selected': type.selected}">
-                        @{{ type.name }}
+                        @{{ getFormatName(type.name) }}
                     </button>
                 </div>
 
@@ -93,11 +93,11 @@
                     </div>
                     <div class="modal-body">
                         <h3>{{ __('Ставки') }}</h3>
-                        <div v-for="bet in createdBets">
-                            <p>{{ __('Название') }}: @{{ bet.type.name }}</p>
-                            <p>{{ __('Символ') }}: @{{ bet.type.symbol }}</p>
+                        <div v-for="bet in user_bets">
+                            <p>{{ __('Название') }}: @{{ getFormatName(bet.type.name) }}</p>
+                            <p>{{ __('Символ') }}: @{{ (bet.type.symbol != 'null') ? bet.type.symbol : '-' }}</p>
                         </div>
-                        <h3>{{ __('Общая сумма:') }} @{{ sum }}</h3>
+                        <h3>{{ __('Общая сумма:') }} @{{ sum }} BTC</h3>
                         <h3>{{ __('Адрес перевода:') }} @{{ (payments_address) ? payments_address[0] : '' }}</h3>
                     </div>
                     <div class="modal-footer">
